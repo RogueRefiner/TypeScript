@@ -10,11 +10,6 @@ function part1() {
     var gamma_rate = "";
     for (var i = 0; i < diagnostic_report[0].length; i++) {
         var zeros = count_zeros(diagnostic_report, i);
-        // for (let j = 0; j < diagnostic_report.length; j++) {
-        //     if (diagnostic_report[j][i] == "0"){
-        //         zeros += 1
-        //     }             
-        // }
         if (zeros > diagnostic_report.length / 2) {
             gamma_rate += "0";
             epsilon_rate += "1";
@@ -28,7 +23,6 @@ function part1() {
 }
 function part2() {
     var diagnostic_report = read_file("input.txt");
-    // console.log(`diagnostic: ${diagnostic_report.length}`)
     var oxygen_generator_rating = find_oxygen_generator(diagnostic_report, 0);
     var co2_scrubber_rating = find_co2_scrubber_rating(diagnostic_report, 0);
     for (var i = 1; i < diagnostic_report[0].length; i++) {
@@ -42,8 +36,6 @@ function part2() {
             oxygen_generator_rating = find_oxygen_generator(oxygen_generator_rating, i);
         }
     }
-    // console.log(`diagnostic: ${diagnostic_report.length}, co2_scrubber: ${co2_scrubber_rating.length}, oxygen: ${oxygen_generator_rating.length}`)
-    // console.log(`co2_scrubber[0]: ${co2_scrubber_rating[0]}, oxygen[0]: ${oxygen_generator_rating[0]}`)
     return parseInt(co2_scrubber_rating[0], 2) * parseInt(oxygen_generator_rating[0], 2);
 }
 function find_oxygen_generator(oxygen_generator_rating, index) {
