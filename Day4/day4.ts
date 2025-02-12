@@ -21,23 +21,24 @@ function read_file(filename: string): [Array<number>, Array<Array<Array<number>>
 
 function part1(): number {
     const [numbers, bingoboards]: [Array<number>, Array<Array<Array<number>>>] = read_file("input.txt");
+    let found_placeholder: number = 1000
 
     for (const value of numbers) {
         for (const bingoboard of bingoboards) {
             for (const subboard of bingoboard) {
                 const index: number = subboard.indexOf(value);
                 if (index >= 0) {
-                    subboard[index] = 1000;
+                    subboard[index] = found_placeholder;
 
                     let count: number = 0;
                     for (let i = 0; i < bingoboard.length; i++) {
-                        if (bingoboard[i][index] == 1000) {
+                        if (bingoboard[i][index] == found_placeholder) {
                             count += 1;
                         }
                     }
 
-                    if (subboard.filter(x => x == 1000).length == subboard.length || count == subboard.length) {
-                        return bingoboard.flat().filter(x => x != 1000).reduce((sum, current) => sum + current, 0) * value;
+                    if (subboard.filter(x => x == found_placeholder).length == subboard.length || count == subboard.length) {
+                        return bingoboard.flat().filter(x => x != found_placeholder).reduce((sum, current) => sum + current, 0) * value;
                     }
                 }
             }

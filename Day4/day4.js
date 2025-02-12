@@ -21,6 +21,7 @@ function read_file(filename) {
 }
 function part1() {
     var _a = read_file("input.txt"), numbers = _a[0], bingoboards = _a[1];
+    var found_placeholder = 1000;
     for (var _i = 0, numbers_1 = numbers; _i < numbers_1.length; _i++) {
         var value = numbers_1[_i];
         for (var _b = 0, bingoboards_1 = bingoboards; _b < bingoboards_1.length; _b++) {
@@ -29,15 +30,15 @@ function part1() {
                 var subboard = bingoboard_1[_c];
                 var index = subboard.indexOf(value);
                 if (index >= 0) {
-                    subboard[index] = 1000;
+                    subboard[index] = found_placeholder;
                     var count = 0;
                     for (var i = 0; i < bingoboard.length; i++) {
-                        if (bingoboard[i][index] == 1000) {
+                        if (bingoboard[i][index] == found_placeholder) {
                             count += 1;
                         }
                     }
-                    if (subboard.filter(function (x) { return x == 1000; }).length == subboard.length || count == subboard.length) {
-                        return bingoboard.flat().filter(function (x) { return x != 1000; }).reduce(function (sum, current) { return sum + current; }, 0) * value;
+                    if (subboard.filter(function (x) { return x == found_placeholder; }).length == subboard.length || count == subboard.length) {
+                        return bingoboard.flat().filter(function (x) { return x != found_placeholder; }).reduce(function (sum, current) { return sum + current; }, 0) * value;
                     }
                 }
             }
