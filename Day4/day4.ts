@@ -48,6 +48,36 @@ function part1(): number {
 }
 
 function part2(): number {
+    const [numbers, bingoboards]: [Array<number>, Array<Array<Array<number>>>] = read_file("input.txt");
+    let found_placeholder: number = 1000
+
+    let finished_boards: Set<number> = new Set()
+    for (const value of numbers) {
+        let test: number = 0
+        for (const bingoboard of bingoboards) {
+            for (const subboard of bingoboard) {
+                const index: number = subboard.indexOf(value);
+                if (index >= 0) {
+                    subboard[index] = found_placeholder;
+
+                    let count: number = 0;
+                    for (let i = 0; i < bingoboard.length; i++) {
+                        if (bingoboard[i][index] == found_placeholder) {
+                            count += 1;
+                        }
+                    }
+
+                    if (subboard.filter(x => x == found_placeholder).length == subboard.length || count == subboard.length) {
+                        finished_boards.add(test)
+                        if (finished_boards.size == bingoboards.length) {
+                            return bingoboards[[...finished_boards].pop()!].flat().filter(x => x != found_placeholder).reduce((sum, current) => sum + current, 0) * value;
+                        }
+                    }
+                }
+            }
+            test += 1
+        }
+    }
     return 0; 
 }
 
